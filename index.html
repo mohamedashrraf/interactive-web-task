@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل لغات برمجة الويب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- متغيرات الألوان --- */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e293b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --accent-color: #3b82f6;
+        }
+
+        /* --- التنسيقات العامة --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- الهيدر --- */
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        /* --- أزرار التحكم (التفاعلية) --- */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            background-color: #e2e8f0;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 25px;
+            font-family: inherit;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover, .btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+
+        /* --- شبكة البطاقات (Responsive Grid) --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .grid {
+            display: grid;
+            /* هذا السطر هو سر التجاوب: يقوم بإنشاء أعمدة تلقائية بحجم لا يقل عن 300 بكسل */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- تصميم البطاقة --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 5px;
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 15px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* --- تنسيقات للهواتف الصغيرة --- */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .grid { grid-template-columns: 1fr; } /* عمود واحد في الموبايل */
+        }
+
+        /* إخفاء العناصر عند الفلترة */
+        .hide {
+            display: none;
+        }
+        
+        /* انيميشن بسيط للظهور */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>لغات برمجة الويب</h1>
+        <p>اكتشف التقنيات الأساسية لبناء مواقع وتطبيقات الويب الحديثة</p>
+    </header>
+
+    <div class="controls">
+        <button class="btn active" onclick="filterSelection('all')">الكل</button>
+        <button class="btn" onclick="filterSelection('frontend')">الواجهة الأمامية (Frontend)</button>
+        <button class="btn" onclick="filterSelection('backend')">الواجهة الخلفية (Backend)</button>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="languagesGrid">
+            
+            <div class="card fade-in" data-category="frontend">
+                <h3>HTML5 <span class="badge">هيكل</span></h3>
+                <p>هي لغة الترميز الأساسية المستخدمة لإنشاء هيكل صفحات الويب ومحتواها. لا يمكن بناء موقع بدونها.</p>
+                <div class="card-footer">Frontend</div>
+            </div>
+
+            <div class="card fade-in" data-category="frontend">
+                <h3>CSS3 <span class="badge">تنسيق</span></h3>
+                <p>تستخدم لتصميم وتنسيق صفحات الويب، والتحكم في الألوان والخطوط والتخطيط (Layout) والتجاوب مع الشاشات.</p>
+                <div class="card-footer">Frontend</div>
+            </div>
+
+            <div class="card fade-in" data-category="frontend backend">
+                <h3>JavaScript <span class="badge">تفاعلية</span></h3>
+                <p>لغة البرمجة التي تجعل الصفحات تفاعلية وحية. تعمل في المتصفح وأيضاً في الخادم عبر بيئة Node.js.</p>
+                <div class="card-footer">Frontend & Backend</div>
+            </div>
+
+            <div class="card fade-in" data-category="backend">
+                <h3>Python <span class="badge">منطق</span></h3>
+                <p>لغة قوية وسهلة التعلم، تستخدم في الويب عبر أطر عمل شهيرة مثل Django و Flask للتعامل مع البيانات والخوادم.</p>
+                <div class="card-footer">Backend</div>
+            </div>
+
+            <div class="card fade-in" data-category="backend">
+                <h3>PHP <span class="badge">سكربت</span></h3>
+                <p>لغة مصممة خصيصاً للويب، تشغل جزءاً كبيراً من الإنترنت (بما في ذلك ووردبريس). ممتازة للتعامل مع قواعد البيانات.</p>
+                <div class="card-footer">Backend</div>
+            </div>
+
+            <div class="card fade-in" data-category="backend">
+                <h3>SQL <span class="badge">بيانات</span></h3>
+                <p>ليست لغة برمجة تقليدية، بل لغة استعلام تستخدم للتواصل مع قواعد البيانات وتخزين واسترجاع المعلومات.</p>
+                <div class="card-footer">Database</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // دالة الفلترة
+        function filterSelection(category) {
+            var cards = document.getElementsByClassName("card");
+            
+            // التعامل مع الأزرار وتغيير اللون للزر النشط
+            var btns = document.getElementsByClassName("btn");
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].addEventListener("click", function(){
+                    var current = document.getElementsByClassName("active");
+                    current[0].className = current[0].className.replace(" active", "");
+                    this.className += " active";
+                });
+            }
+
+            // منطق الإظهار والإخفاء
+            for (var i = 0; i < cards.length; i++) {
+                // إزالة كلاس الانيميشن لإعادة تشغيله
+                cards[i].classList.remove("fade-in");
+                void cards[i].offsetWidth; // خدعة لإعادة تشغيل الانيميشن (Reflow)
+                cards[i].classList.add("fade-in");
+
+                if (category == "all") {
+                    cards[i].style.display = "block";
+                } else {
+                    // التحقق مما إذا كان الكارت يحتوي على الفئة المطلوبة
+                    if (cards[i].getAttribute("data-category").includes(category)) {
+                        cards[i].style.display = "block";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
